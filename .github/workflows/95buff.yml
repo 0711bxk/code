@@ -1,8 +1,8 @@
-name: Daily Login
+name: 等级箱子
 
 on:
   schedule:
-    - cron: '22 13 * * *'  # 每天 UTC 时间 13:22 执行（北京时间 21:22）
+    - cron: '5 16 * * *'  # 每天 UTC 时间 16:05 执行（北京时间 00:02）
   workflow_dispatch:  # 添加手动触发
 
 jobs:
