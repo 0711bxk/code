@@ -3,6 +3,7 @@ name: Daily Login
 on:
   schedule:
     - cron: '22 13 * * *'  # 每天 UTC 时间 13:22 执行（北京时间 21:22）
+  workflow_dispatch:  # 添加手动触发
 
 jobs:
   run_script:
