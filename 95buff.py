@@ -4,8 +4,16 @@ import requests
 # 从环境变量获取组合后的账号和密码
 login_credentials = os.getenv("BUFF95")
 
+if login_credentials is None:
+    print("Error: BUFF95 environment variable is not set.")
+    exit(1)  # 退出脚本
+
 # 分割账号和密码
-account, password = login_credentials.split(":")
+try:
+    account, password = login_credentials.split(":")
+except ValueError:
+    print("Error: BUFF95 format is incorrect. Expected 'account:password'.")
+    exit(1)
 
 url = "https://95buff.com/api/login/doLogin"
 
@@ -30,3 +38,4 @@ response = requests.post(url, headers=headers, json=data)
 
 print(f"Response status code: {response.status_code}")
 print(f"Response text: {response.text}")
+
