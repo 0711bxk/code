@@ -36,6 +36,24 @@ data = {
 
 response = requests.post(url, headers=headers, json=data)
 
-print(f"Response status code: {response.status_code}")
-print(f"Response text: {response.text}")
+# 从响应中提取token
+if response.status_code == 200:
+    token = response.json().get("data", {}).get("data", {}).get("token")
+
+    # 使用token进行第二个请求
+    if token:
+        open_box_url = "https://95buff.com/api/gradeBox/openBox"
+        headers['authorization'] = token  # 替换为新的authorization头
+
+        # 请求体
+        open_box_data = {
+            "id": 483  # 设置id为483
+        }
+
+        response_open_box = requests.post(open_box_url, headers=headers, json=open_box_data)
+        print(response_open_box.text)
+    else:
+        print("无法获取token")
+else:
+    print("登录失败，无法获取token")
 
