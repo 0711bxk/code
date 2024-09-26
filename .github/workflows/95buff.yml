@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      LOGIN_CREDENTIALS: ${{ secrets.95buff }}  # 使用合并后的账号和密码
+      LOGIN_CREDENTIALS: ${{ secrets.BUFF95 }}  # 使用合并后的账号和密码
 
     steps:
     - name: Checkout code
