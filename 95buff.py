@@ -33,9 +33,6 @@ data = {
 }
 response = requests.post(login_url, headers=headers, json=data)
 
-# 打印登录响应状态码和内容
-print(response.status_code)
-print(response.text)
 
 # 从响应中提取token
 if response.status_code == 200:
@@ -55,7 +52,6 @@ if response.status_code == 200:
         response_open_box = requests.post(open_box_url, headers=headers, json=open_box_data)
 
         # 打印打开箱子的响应状态码和内容
-        print(response_open_box.status_code)
         print(response_open_box.text)
     else:
         print("无法获取token")
