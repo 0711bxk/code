@@ -1,22 +1,21 @@
 import os
 import requests
 
-# 从环境变量获取组合后的账号和密码
+# 从环境变量获取登录凭据
 login_credentials = os.getenv("BUFF95")
-
-if login_credentials is None:
-    print("Error: BUFF95 environment variable is not set.")
-    exit(1)  # 退出脚本
+if not login_credentials:
+    print("请设置环境变量 BUFF95，格式为 '账号:密码'")
+    exit(1)
 
 # 分割账号和密码
 try:
-    account, password = login_credentials.split(":")
+    account, password = login_credentials.split(':')
 except ValueError:
-    print("Error: BUFF95 format is incorrect. Expected 'account:password'.")
+    print("环境变量 BUFF95 格式错误，应该是 '账号:密码'")
     exit(1)
 
-url = "https://95buff.com/api/login/doLogin"
-
+# 登录获取token
+login_url = "https://95buff.com/api/login/doLogin"
 headers = {
     "accept": "application/json, text/plain, */*",
     "content-type": "application/json;charset=UTF-8",
@@ -26,19 +25,22 @@ headers = {
     "sec-ch-ua-platform": '"Windows"',
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0"
 }
-
 data = {
-    "account": account,  # 从 Secret 中解析出的账号
-    "password": password,  # 从 Secret 中解析出的密码
+    "account": account,
+    "password": password,
     "isMobile": "1",
     "device": "pc"
 }
+response = requests.post(login_url, headers=headers, json=data)
 
-response = requests.post(url, headers=headers, json=data)
+# 打印登录响应状态码和内容
+print(response.status_code)
+print(response.text)
 
 # 从响应中提取token
 if response.status_code == 200:
     token = response.json().get("data", {}).get("data", {}).get("token")
+    print("Token:", token)
 
     # 使用token进行第二个请求
     if token:
@@ -51,9 +53,11 @@ if response.status_code == 200:
         }
 
         response_open_box = requests.post(open_box_url, headers=headers, json=open_box_data)
+
+        # 打印打开箱子的响应状态码和内容
+        print(response_open_box.status_code)
         print(response_open_box.text)
     else:
         print("无法获取token")
 else:
     print("登录失败，无法获取token")
-
