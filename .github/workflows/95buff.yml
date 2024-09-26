@@ -2,7 +2,7 @@ name: 等级箱子
 
 on:
   schedule:
-    - cron: '5 16 * * *'  # 每天 UTC 时间 16:05 执行（北京时间 00:02）
+    - cron: '3 16 * * *'  # 每天 UTC 时间 16:05 执行（北京时间 00:02）
   workflow_dispatch:  # 添加手动触发
 
 jobs:
