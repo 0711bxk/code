@@ -1,4 +1,4 @@
-name: 95等级签到
+name: Daily Login
 
 on:
   schedule:
@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ACCOUNT: ${{ secrets.ACCOUNT }}  # 使用 GitHub Secrets 来存储敏感信息
-      PASSWORD: ${{ secrets.PASSWORD }}
+      LOGIN_CREDENTIALS: ${{ secrets.95buff }}  # 使用合并后的账号和密码
 
     steps:
     - name: Checkout code
@@ -20,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
