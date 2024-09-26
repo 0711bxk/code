@@ -2,7 +2,7 @@ name: 等级箱子
 
 on:
   schedule:
-    - cron: '22 16 * * *'  # 每天 UTC 16:00 运行
+    - cron: '30 16 * * *'  # 每天 UTC 16:00 运行
 
 jobs:
   run_script:
