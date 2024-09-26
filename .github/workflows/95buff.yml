@@ -7,21 +7,29 @@ on:
 
 jobs:
   run_script:
-    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # 拉取你的代码
+      uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    # 使用 Node.js 16 环境
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v3
       with:
-        python-version: '3.9'  # 设置 Python 版本
+        node-version: '16'  # 指定 Node.js 版本为 16
 
+    # 设置 Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    # 安装依赖并运行脚本
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests  # 安装 requests 库
+        pip install requests
 
     - name: Run login script
       run: python 95buff.py  # 替换为你的 Python 脚本文件名
