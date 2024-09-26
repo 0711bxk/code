@@ -2,7 +2,7 @@ import os
 import requests
 
 # 从环境变量获取组合后的账号和密码
-login_credentials = os.getenv("LOGIN_CREDENTIALS")
+login_credentials = os.getenv("95buff")
 
 # 分割账号和密码
 account, password = login_credentials.split(":")
