@@ -1,9 +1,11 @@
 import os
 import requests
 
-# 从环境变量获取账号和密码
-account = os.getenv("ACCOUNT")
-password = os.getenv("PASSWORD")
+# 从环境变量获取组合后的账号和密码
+login_credentials = os.getenv("LOGIN_CREDENTIALS")
+
+# 分割账号和密码
+account, password = login_credentials.split(":")
 
 url = "https://95buff.com/api/login/doLogin"
 
@@ -18,8 +20,8 @@ headers = {
 }
 
 data = {
-    "account": account,  # 使用环境变量中的账号
-    "password": password,  # 使用环境变量中的密码
+    "account": account,  # 从 Secret 中解析出的账号
+    "password": password,  # 从 Secret 中解析出的密码
     "isMobile": "1",
     "device": "pc"
 }
