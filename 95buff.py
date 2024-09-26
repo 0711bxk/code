@@ -1,4 +1,9 @@
+import os
 import requests
+
+# 从环境变量获取账号和密码
+account = os.getenv("ACCOUNT")
+password = os.getenv("PASSWORD")
 
 url = "https://95buff.com/api/login/doLogin"
 
@@ -11,13 +16,15 @@ headers = {
     "sec-ch-ua-platform": '"Windows"',
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0"
 }
+
 data = {
-    "account": "18671189740",
-    "password": "123456789bxk",
+    "account": account,  # 使用环境变量中的账号
+    "password": password,  # 使用环境变量中的密码
     "isMobile": "1",
     "device": "pc"
 }
+
 response = requests.post(url, headers=headers, json=data)
 
-print(response.status_code)
-print(response.text)
+print(f"Response status code: {response.status_code}")
+print(f"Response text: {response.text}")
