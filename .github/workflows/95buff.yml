@@ -23,4 +23,4 @@ jobs:
         pip install requests  # 安装 requests 库
 
     - name: Run login script
-      run: python your_script.py  # 替换为你的 Python 脚本文件名
+      run: python 95buff.py  # 替换为你的 Python 脚本文件名
