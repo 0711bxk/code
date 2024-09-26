@@ -1,4 +1,4 @@
-name: Daily Login
+name: 95等级签到
 
 on:
   schedule:
@@ -9,21 +9,23 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
 
+    env:
+      ACCOUNT: ${{ secrets.ACCOUNT }}  # 使用 GitHub Secrets 来存储敏感信息
+      PASSWORD: ${{ secrets.PASSWORD }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # 设置 Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
-    # 安装依赖并运行脚本
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install requests
 
     - name: Run login script
-      run: python 95buff.py  # 替换为你的 Python 脚本文件名
+      run: python 95buff.py
