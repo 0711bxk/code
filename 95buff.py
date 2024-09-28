@@ -42,27 +42,37 @@ for account_info in accounts:
     # 发送登录请求
     response = requests.post(login_url, headers=headers, json=data)
 
-    # 检查登录响应状态
+    # 检查登录响应状态码
     if response.status_code == 200:
-        # 获取 token
-        token = response.json().get("data", {}).get("data", {}).get("token")
-        print(f"账号 {account} 登录成功，Token: {token}")
+        try:
+            # 打印完整响应，检查内容是否为 JSON
+            print(f"账号 {account} 的响应内容:", response.text)
 
-        # 如果成功获取 token，进行开箱操作
-        if token:
-            open_box_url = "https://95buff.com/api/gradeBox/openBox"
-            headers['authorization'] = token  # 替换为新的authorization头
+            # 尝试解析 JSON 数据
+            response_data = response.json()
+            token = response_data.get("data", {}).get("data", {}).get("token")
 
-            # 请求体，设置id为483
-            open_box_data = {
-                "id": 483
-            }
+            if token:
+                print(f"账号 {account} 登录成功，Token: {token}")
 
-            response_open_box = requests.post(open_box_url, headers=headers, json=open_box_data)
+                # 使用 token 进行开箱操作
+                open_box_url = "https://95buff.com/api/gradeBox/openBox"
+                headers['authorization'] = token  # 替换为新的 authorization 头
 
-            # 打印打开箱子的响应
-            print(f"账号 {account} 开箱结果：{response_open_box.text}")
-        else:
-            print(f"账号 {account} 无法获取token")
+                # 请求体，设置 id 为 483
+                open_box_data = {
+                    "id": 483
+                }
+
+                response_open_box = requests.post(open_box_url, headers=headers, json=open_box_data)
+
+                # 打印打开箱子的响应状态码和内容
+                print(f"账号 {account} 开箱结果：{response_open_box.text}")
+            else:
+                print(f"账号 {account} 无法获取 token")
+
+        except ValueError:
+            # 如果 JSON 解析失败，打印错误并退出
+            print(f"账号 {account} 响应不是有效的 JSON 格式:", response.text)
     else:
-        print(f"账号 {account} 登录失败，无法获取token")
+        print(f"账号 {account} 登录失败，状态码: {response.status_code}, 响应内容: {response.text}")
