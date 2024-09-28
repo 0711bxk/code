@@ -3,6 +3,7 @@ name: 等级箱子
 on:
   schedule:
     - cron: '30 16 * * *'  # 每天 UTC 16:00 运行
+  workflow_dispatch:  # 添加手动触发选项
 
 jobs:
   run_script:
