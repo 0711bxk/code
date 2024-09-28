@@ -3,14 +3,14 @@ name: 等级箱子
 on:
   schedule:
     - cron: '30 16 * * *'  # 每天 UTC 16:00 运行
-    
+  workflow_dispatch:  # 添加手动触发选项
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
 
     env:
-      BUFF95: ${{ secrets.BUFF952 }}  # 引用你设置的 Secret
+      BUFF952: ${{ secrets.BUFF952 }}  # 引用你设置的 Secret
 
     steps:
     - name: Checkout code
@@ -27,4 +27,4 @@ jobs:
         pip install requests
 
     - name: Run login script
-      run: python 95buff.py
+      run: python 95buff2.py
