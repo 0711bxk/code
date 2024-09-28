@@ -2,7 +2,7 @@ name: 等级箱子2hao
 
 on:
   schedule:
-    - cron: '30 16 * * *'  # 每天 UTC 16:00 运行
+    - cron: '40 16 * * *'  # 每天 UTC 16:00 运行
   workflow_dispatch:  # 添加手动触发选项
 
 jobs:
